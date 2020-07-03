@@ -1,15 +1,19 @@
 package com.cambalache.commonservice;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Service;
 
-@SpringBootApplication
-@EnableEurekaClient
+@Service
+@EnableConfigurationProperties(ServiceProperties.class)
 public class CommonServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CommonServiceApplication.class, args);
+	private final ServiceProperties serviceProperties;
+
+	public CommonServiceApplication(ServiceProperties serviceProperties) {
+		this.serviceProperties = serviceProperties;
 	}
 
+	public String message() {
+		return this.serviceProperties.getMessage();
+	}
 }
